@@ -1,0 +1,186 @@
+// Show Databases
+show dbs
+
+// Create or Select Databases
+use people
+
+# Collections are equivilent to Tables in SQL language
+
+// Create a Collections
+db.createCollection("person")
+
+// Insert Data
+db.person.insert(
+    {
+        name: "John",
+        age: 30
+    }
+)
+
+// Find a Data - Equivilent to SELECT * FROM person in SQL language
+db.person.find()
+
+// Display data in a better way 
+db.person.find().pretty()
+
+// Clean MongoDB Terminal
+cls
+
+// Show Collections
+show collections
+
+// Delete/ Drop Collections
+db.person.drop()
+
+// Insert Multiple Databases
+db.person.insert(
+    [
+        {
+            name: "John",
+            age: 30
+        },
+        {
+            name: "Mary",
+            age: 27
+        },
+        {
+            name: "Ana",
+            age: 21
+        }
+    ]
+)
+
+
+// Update Data (careful)
+db.person.update(
+    { _id: ObjectId("5fa3ef1a91f303c6eb75e608") },
+    {age: 25}
+)
+
+// Upadete that updates a data and keep the rest
+db.person.update(
+    { _id: ObjectId("5fa3ef1a91f303c6eb75e608") },
+    {
+        $set: {
+            name: "John"
+        }
+    }
+)
+
+// Find a data by parameter
+db.person.find(
+    { name: "John" }
+).pretty()
+
+
+// Sort Data - number 1 is ascending sort and -1 is descending sort
+db.person.find().sort(
+    { name: 1 }
+).pretty()
+
+// Limit of Results
+# limit of all Results
+db.person.find().limit(2)
+
+# limit of elements age 30
+db.person.find( {age: 30} ).limit(2).pretty()
+
+# limit of elements age 30 and sorted by name
+db.person.find( {age: 30} ).sort( { name: 1 } ).limit(2)
+
+
+
+// Get Size/ Count Elements
+db.person.count()
+
+
+// Add new field to an elements
+db.person.update( 
+    { _id: ObjectId("5fa4015891f303c6eb75e60b") },
+    {
+        $push: { kids: ["Taba", "Naruna", "Josefina"] }
+    }
+)
+
+// Usent a field
+db.person.update(
+    { _id: ObjectId("5fa4015891f303c6eb75e60b") },
+    {
+        $unset: {surname: ""}
+    }
+)
+
+// Find based on more than one parameter
+db.person.find(
+    {name: "John", surname: "Blog"}
+).pretty()
+
+
+// How to get all collection names
+db.getCollectionNames()
+
+
+// Remove an element
+db.person.remove(
+    {
+        _id: ObjectId("5fa53815cab4d896cbdcefa3")
+    }
+)
+
+// Conditional Operators
+# If something is less than (<)
+db.person.find(
+    {
+        age: {$lt: 25}
+    }
+)
+
+# If something greater than (>)
+db.person.find(
+    {
+        age: {$gt: 25}
+    }
+)
+
+# If something is greater and equal (>=)
+db.person.find(
+    {
+        age: {$gte: 30}
+    }
+)
+
+# If something is less or equal than (<=)
+db.person.find(
+    {
+        age: { $lte: 35 }
+    }
+)
+
+# If something is different than (!=)
+db.person.find(
+    {
+        age: { $ne: 25 }
+    }
+)
+
+# If somthing is equal or (||)
+
+
+// Check if a filed/ attribute exist in an element and return them
+# There is the field
+db.person.find(
+    {
+        kids: { $exists: true}
+    }
+)
+
+# There isn't the field
+db.person.find(
+    {
+        kids: { $exists: false }
+    }
+)
+
+
+// ObjectId("5fa4015891f303c6eb75e60b")
+
